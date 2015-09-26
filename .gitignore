@@ -21,3 +21,4 @@
 .zshrc
 *.swp
 .DS_Store
+suiyujin/*.dump
