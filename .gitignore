@@ -12,3 +12,12 @@
 /webapp/python
 /webapp/perl
 /webapp/ruby
+
+/.cache
+/.vim/
+.zcompdump
+.zprofile
+.zsh_history
+.zshrc
+*.swp
+.DS_Store
