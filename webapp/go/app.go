@@ -90,21 +90,29 @@ var (
 		"get_token": func(session *sessions.Session) interface{} {
 			return session.Values["token"]
 		},
-		"gen_markdown": func(s string) template.HTML {
-			f, _ := ioutil.TempFile(tmpDir, "isucon")
-			defer f.Close()
-			f.WriteString(s)
-			f.Sync()
-			finfo, _ := f.Stat()
-			path := tmpDir + finfo.Name()
-			defer os.Remove(path)
-			cmd := exec.Command(markdownCommand, path)
-			out, err := cmd.Output()
-			if err != nil {
-				log.Printf("can't exec markdown command: %v", err)
-				return ""
-			}
-			return template.HTML(out)
+		"gen_markdown": func(s string, id int) template.HTML {
+      read_f, read_err := ioutil.ReadFile(tmpDir + "isucon" + strconv.Itoa(id))
+      
+      if read_err != nil {
+        f, _ := ioutil.TempFile(tmpDir, "isucon")
+			  defer f.Close()
+			  f.WriteString(s)
+			  f.Sync()
+			  finfo, _ := f.Stat()
+			  path := tmpDir + finfo.Name()
+			  defer os.Remove(path)
+			  cmd := exec.Command(markdownCommand, path)
+			  out, err := cmd.Output()
+			  if err != nil {
+				  log.Printf("can't exec markdown command: %v", err)
+				  return ""
+			  }
+
+			  ioutil.WriteFile(tmpDir + "isucon" + strconv.Itoa(id), out, 777)
+        read_f = out
+      }
+
+			return template.HTML(read_f)
 		},
 	}
 	tmpl = template.Must(template.New("tmpl").Funcs(fmap).ParseGlob("templates/*.html"))
