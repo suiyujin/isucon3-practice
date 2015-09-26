@@ -22,5 +22,5 @@
 .zshrc
 *.swp
 .DS_Store
-suiyujin/*.dump
+suiyujin/dump/*.dump
 .mysql_history
