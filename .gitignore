@@ -23,4 +23,5 @@
 *.swp
 .DS_Store
 suiyujin/dump/*.dump
+suiyujin/slow_log/*.log
 .mysql_history
