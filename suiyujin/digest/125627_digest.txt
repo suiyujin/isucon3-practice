@@ -1,0 +1,235 @@
+
+# 16s user time, 330ms system time, 38.60M rss, 230.39M vsz
+# Current date: Sat Sep 26 12:56:43 2015
+# Hostname: ip-172-31-30-219
+# Files: /tmp/slow.log
+# Overall: 84.88k total, 52 unique, 201.62 QPS, 0.40x concurrency ________
+# Time range: 2015-09-26 12:47:13 to 12:54:14
+# Attribute          total     min     max     avg     95%  stddev  median
+# ============     ======= ======= ======= ======= ======= ======= =======
+# Exec time           168s     3us   444ms     2ms   384us    12ms    80us
+# Lock time             2s       0    12ms    25us    36us   108us    23us
+# Rows sent        237.81k       0     201    2.87    0.99   15.16    0.99
+# Rows examine      96.91M       0  60.46k   1.17k    0.99   6.80k    0.99
+# Query size       141.66M      10 1021.73k   1.71k   38.53  40.52k   38.53
+
+# Profile
+# Rank Query ID           Response time Calls R/Call V/M   Item
+# ==== ================== ============= ===== ====== ===== ===============
+#    1 0x4517399CB130EF84 63.3241 37.7%   674 0.0940  0.03 SELECT memos
+#    2 0x4B4B34854741F958 39.7576 23.7%   737 0.0539  0.01 SELECT memos
+#    3 0x08E3E2CA950A9030 27.5926 16.4%   674 0.0409  0.01 SELECT memos
+#    4 0x8ED61FE2C1C9A2A1 10.6694  6.4% 68281 0.0002  0.00 SELECT users
+#    5 0x88929194AB4B746F  8.4711  5.0%   140 0.0605  0.01 INSERT UPDATE DELETE REPLACE UPDATE DELETE SELECT DELETE UPDATE DELETE UPDATE DELETE REPLACE DELETE SELECT UPDATE REPLACE UPDATE REPLACE UPDATE DELETE SELECT UPDATE SELECT REPLACE DELETE UPDATE DELETE UPDATE memos
+#    6 0x402E13A51340C830  8.1933  4.9%   144 0.0569  0.01 SELECT memos
+#    7 0xD675B617BD90D308  7.8373  4.7%   140 0.0560  0.00 SELECT memos
+# MISC 0xMISC              1.9631  1.2% 14093 0.0001   0.0 <45 ITEMS>
+
+# Query 1: 11.05 QPS, 1.04x concurrency, ID 0x4517399CB130EF84 at byte 145469635
+# Scores: V/M = 0.03
+# Time range: 2015-09-26 12:52:33 to 12:53:34
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0     674
+# Exec time     37     63s    19ms   444ms    94ms   208ms    57ms    75ms
+# Lock time      2    50ms    24us    11ms    74us    60us   512us    31us
+# Rows sent     27  65.82k     100     100     100     100       0     100
+# Rows examine  31  30.07M  40.31k  60.46k  45.68k  59.57k   6.84k  40.32k
+# Query size     0  57.90k      82      95   87.96   92.72    6.30   80.10
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        root
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  #############################
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'memos'\G
+#    SHOW CREATE TABLE `isucon`.`memos`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT * FROM memos WHERE is_private=0 ORDER BY created_at DESC, id DESC LIMIT 100 OFFSET 17200\G
+
+# Query 2: 12.08 QPS, 0.65x concurrency, ID 0x4B4B34854741F958 at byte 145444429
+# Scores: V/M = 0.01
+# Time range: 2015-09-26 12:52:33 to 12:53:34
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0     737
+# Exec time     23     40s    19ms   242ms    54ms    82ms    19ms    51ms
+# Lock time      0    21ms    21us    54us    28us    31us     3us    27us
+# Rows sent     33  78.62k       2     201  109.24  192.76   59.41  118.34
+# Rows examine  29  29.07M  40.21k  40.54k  40.38k  40.32k     166  40.32k
+# Query size     0  72.51k      99     101  100.74   97.36    0.00   97.36
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        root
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'memos'\G
+#    SHOW CREATE TABLE `isucon`.`memos`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user=270  ORDER BY created_at\G
+
+# Query 3: 11.05 QPS, 0.45x concurrency, ID 0x08E3E2CA950A9030 at byte 145443551
+# Scores: V/M = 0.01
+# Time range: 2015-09-26 12:52:33 to 12:53:34
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0     674
+# Exec time     16     28s    14ms   165ms    41ms    68ms    19ms    36ms
+# Lock time      2    55ms    35us    12ms    81us    93us   448us    57us
+# Rows sent      0     674       1       1       1       1       0       1
+# Rows examine  27  26.51M  40.21k  40.35k  40.28k  40.32k      70  38.40k
+# Query size     0  32.91k      50      50      50      50       0      50
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        root
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'memos'\G
+#    SHOW CREATE TABLE `isucon`.`memos`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT count(*) AS c FROM memos WHERE is_private=0\G
+
+# Query 4: 1.12k QPS, 0.17x concurrency, ID 0x8ED61FE2C1C9A2A1 at byte 157991364
+# Scores: V/M = 0.00
+# Time range: 2015-09-26 12:52:33 to 12:53:34
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count         80   68281
+# Exec time      6     11s    60us    26ms   156us   224us   610us    80us
+# Lock time     90      2s    16us    11ms    29us    35us    99us    23us
+# Rows sent     28  66.68k       1       1       1       1       0       1
+# Rows examine   0  66.68k       1       1       1       1       0       1
+# Query size     1   2.52M      37      39   38.72   38.53    0.74   38.53
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        root
+# Query_time distribution
+#   1us
+#  10us  ################################################################
+# 100us  ######################
+#   1ms  #
+#  10ms  #
+# 100ms
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'users'\G
+#    SHOW CREATE TABLE `isucon`.`users`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT username FROM users WHERE id=400\G
+
+# Query 5: 12.73 QPS, 0.77x concurrency, ID 0x88929194AB4B746F at byte 5543
+# Scores: V/M = 0.01
+# Time range: 2015-09-26 12:52:17 to 12:52:28
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0     140
+# Exec time      5      8s    30ms   173ms    61ms   100ms    24ms    59ms
+# Lock time      0       0       0       0       0       0       0       0
+# Rows sent      0       0       0       0       0       0       0       0
+# Rows examine   0       0       0       0       0       0       0       0
+# Query size    97 138.38M 813.06k 1021.73k 1012.13k 1009.33k  26.04k 1009.33k
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        isucon
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  #######
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'memos'\G
+#    SHOW CREATE TABLE `isucon`.`memos`\G
+INSERT INTO `memos` VALUES (1,1,'npm-owner(1) -- Manage package owners\n=====================================\n\n## SYNOPSIS\n\n    npm owner ls <package name>\n    npm owner add <user> <package name>\n    npm owner rm <user> <package name>\n\n## DESCRIPTION\n\nManage ownership of published packages.\n\n* ls:\n  List all the users who have access to modify a package and push new versions.\n  Handy when you need to know who to bug for help.\n* add:\n  Add a new user as a maintainer of a package.  This user is enabled to modify\n  metadata, publish new versions, and add other owners.\n* rm:\n  Remove a user from the package owner list.  This immediately revokes their\n  privileges.\n\nNote that there is only one level of access.  Either you can modify a package,\nor you can\'t.  Future versions may contain more fine-grained access levels, but\nthat is not implemented at this time.\n\n## SEE ALSO\n\n* npm-publish(1)\n* npm-registry(7)\n* npm-adduser(1)\n* npm-disputes(7)\n',1,'2013-10-03 20:39:13','2013-10-04 11:39:12') /*... omitted ...*/\G
+
+# Query 6: 2.44 QPS, 0.14x concurrency, ID 0x402E13A51340C830 at byte 158436131
+# Scores: V/M = 0.01
+# Time range: 2015-09-26 12:52:35 to 12:53:34
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0     144
+# Exec time      4      8s    20ms   110ms    57ms    87ms    18ms    53ms
+# Lock time      0     4ms    25us    55us    30us    33us     3us    28us
+# Rows sent      3   8.34k       4     102   59.28   92.72   25.39   65.89
+# Rows examine   5   5.67M  40.25k  40.43k  40.34k  40.32k      92  40.32k
+# Query size     0  16.42k     115     117  116.75  112.70       0  112.70
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        root
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  ##
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'memos'\G
+#    SHOW CREATE TABLE `isucon`.`memos`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user=104 AND is_private=0 ORDER BY created_at\G
+
+# Query 7: 2.33 QPS, 0.13x concurrency, ID 0xD675B617BD90D308 at byte 158723060
+# Scores: V/M = 0.00
+# Time range: 2015-09-26 12:52:33 to 12:53:33
+# Attribute    pct   total     min     max     avg     95%  stddev  median
+# ============ === ======= ======= ======= ======= ======= ======= =======
+# Count          0     140
+# Exec time      4      8s    28ms    99ms    56ms    82ms    16ms    53ms
+# Lock time      0     4ms    22us    47us    29us    33us     3us    28us
+# Rows sent      6  15.47k       2     200  113.15  192.76   56.02  118.34
+# Rows examine   5   5.52M  40.21k  40.53k  40.39k  40.32k  163.50  40.32k
+# Query size     0  14.32k     103     105  104.76  102.22       0  102.22
+# String:
+# Databases    isucon
+# Hosts        localhost
+# Users        root
+# Query_time distribution
+#   1us
+#  10us
+# 100us
+#   1ms
+#  10ms  ################################################################
+# 100ms  #
+#    1s
+#  10s+
+# Tables
+#    SHOW TABLE STATUS FROM `isucon` LIKE 'memos'\G
+#    SHOW CREATE TABLE `isucon`.`memos`\G
+# EXPLAIN /*!50100 PARTITIONS*/
+SELECT id, content, is_private, created_at, updated_at FROM memos WHERE user=158 ORDER BY created_at DESC\G
