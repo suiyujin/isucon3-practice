@@ -3,7 +3,7 @@
     "dbname": "isucon",
     "host": "localhost",
     "port": 3306,
-    "username": "isucon",
-    "password": ""
+    "username": "root",
+    "password": "root"
   }
 }
