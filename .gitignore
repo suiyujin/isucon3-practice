@@ -1,0 +1,13 @@
+.bash*
+.kshrc
+.lesshst
+.viminfo
+
+/local/
+/qualifier_bench/
+/tmp/
+/webapp/nodejs
+/webapp/php
+/webapp/python
+/webapp/perl
+/webapp/ruby
