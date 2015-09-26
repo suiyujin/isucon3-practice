@@ -1,8 +1,9 @@
 .bash*
 .kshrc
 .lesshst
-.viminfo
-
+.vim*
+.gitconfig
+.ssh
 /local/
 /qualifier_bench/
 /tmp/
